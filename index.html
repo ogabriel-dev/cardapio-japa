@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Especial Japa | Cardápio Digital</title>
+    <meta
+      name="description"
+      content="Cardápio digital Especial Japa - Comida japonesa feita com carinho"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- ===================== HEADER ===================== -->
+    <header class="header" id="header">
+      <div class="header__top">
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Abrir menu de categorias"
+          aria-expanded="false"
+        >
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </button>
+
+        <div class="brand">
+          <h1 class="brand__name">Especial Japa</h1>
+          <p class="brand__subtitle">
+            Comida japonesa feita com carinho <span aria-hidden="true">🍣</span>
+          </p>
+        </div>
+
+        <div class="header__spacer" aria-hidden="true"></div>
+      </div>
+
+      <!-- Menu de categorias expansível -->
+      <nav
+        class="categories"
+        id="categories"
+        aria-label="Categorias do cardápio"
+      >
+        <button
+          class="category-chip is-active"
+          data-category="todos"
+          type="button"
+        >
+          <span aria-hidden="true">🍱</span> Todos
+        </button>
+        <button class="category-chip" data-category="especiais" type="button">
+          <span aria-hidden="true">🍣</span> Especiais
+        </button>
+        <button class="category-chip" data-category="unidades" type="button">
+          <span aria-hidden="true">🥢</span> Unidades
+        </button>
+      </nav>
+    </header>
+
+    <!-- ===================== CONTEÚDO ===================== -->
+    <main class="app">
+      <section class="products" id="productsGrid" aria-live="polite">
+        <!-- Produtos renderizados via JavaScript -->
+      </section>
+    </main>
+
+    <!-- ===================== RODAPÉ ===================== -->
+    <footer class="footer">
+      <p class="footer__brand">Especial Japa</p>
+      <p class="footer__note">Pedidos pelo WhatsApp</p>
+      <a
+        class="footer__whatsapp"
+        id="footerWhatsapp"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        <span aria-hidden="true">📱</span> (15) 997072155
+      </a>
+    </footer>
+
+    <!-- ===================== MODAL DE PRODUTO ===================== -->
+    <div class="modal-overlay" id="productModalOverlay">
+      <div
+        class="modal product-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalProductName"
+      >
+        <button class="modal__close" id="closeProductModal" aria-label="Fechar">
+          &times;
+        </button>
+        <div class="product-modal__image-wrap">
+          <img
+            class="product-modal__image"
+            id="modalProductImage"
+            src=""
+            alt=""
+          />
+          <span
+            class="product-modal__emoji"
+            id="modalProductEmoji"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="product-modal__body">
+          <span
+            class="product-modal__category"
+            id="modalProductCategory"
+          ></span>
+          <h2 class="product-modal__name" id="modalProductName"></h2>
+          <p
+            class="product-modal__description"
+            id="modalProductDescription"
+          ></p>
+          <p class="product-modal__price" id="modalProductPrice"></p>
+          <button class="btn btn--primary btn--block" id="addToCartBtn">
+            Adicionar ao Carrinho
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== BARRA FIXA DO CARRINHO ===================== -->
+    <button class="cart-bar" id="cartBar" type="button">
+      <span class="cart-bar__info">
+        <span aria-hidden="true">🛒</span>
+        <span id="cartBarCount">0 itens</span>
+      </span>
+      <span class="cart-bar__cta">Ver Carrinho</span>
+    </button>
+
+    <!-- ===================== MODAL DO CARRINHO ===================== -->
+    <div class="modal-overlay" id="cartModalOverlay">
+      <div
+        class="modal cart-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cartModalTitle"
+      >
+        <div class="modal__header">
+          <h2 id="cartModalTitle">Seu Pedido</h2>
+          <button class="modal__close" id="closeCartModal" aria-label="Fechar">
+            &times;
+          </button>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+          <!-- Itens do carrinho renderizados via JavaScript -->
+        </div>
+
+        <div class="cart-empty" id="cartEmptyState">
+          <p>Seu carrinho está vazio 🍙</p>
+        </div>
+
+        <div class="cart-summary" id="cartSummary">
+          <div class="cart-note" id="cartNoteField">
+            <label for="cartNoteInput">📝 Observações do pedido</label>
+            <textarea
+              id="cartNoteInput"
+              rows="2"
+              placeholder="Ex: sem cebola, ponto do salmão, troco para R$ 100..."
+            ></textarea>
+          </div>
+
+          <div class="cart-summary__row cart-summary__row--total">
+            <span>Total</span>
+            <span id="cartTotal">R$ 0,00</span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn btn--ghost" id="continueShoppingBtn">
+              Continuar Comprando
+            </button>
+            <button class="btn btn--whatsapp" id="goToCheckoutBtn">
+              Finalizar no WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== MODAL DE CHECKOUT ===================== -->
+    <div class="modal-overlay" id="checkoutModalOverlay">
+      <div
+        class="modal checkout-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="checkoutModalTitle"
+      >
+        <div class="modal__header">
+          <h2 id="checkoutModalTitle">Finalizar Pedido</h2>
+          <button
+            class="modal__close"
+            id="closeCheckoutModal"
+            aria-label="Fechar"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="checkout-body">
+          <p class="checkout-question">Como você quer receber seu pedido?</p>
+
+          <div class="delivery-options">
+            <button
+              class="delivery-option"
+              id="deliveryOptionBtn"
+              data-option="entrega"
+              type="button"
+            >
+              <span class="delivery-option__icon" aria-hidden="true">🏍️</span>
+              <span class="delivery-option__label">Entrega</span>
+            </button>
+            <button
+              class="delivery-option"
+              id="pickupOptionBtn"
+              data-option="retirada"
+              type="button"
+            >
+              <span class="delivery-option__icon" aria-hidden="true">🏪</span>
+              <span class="delivery-option__label">Retirada no local</span>
+            </button>
+          </div>
+
+          <div class="address-field" id="addressField">
+            <label for="addressInput">📍 Endereço de entrega</label>
+            <textarea
+              id="addressInput"
+              rows="3"
+              placeholder="Rua, número, complemento, bairro etc."
+            ></textarea>
+          </div>
+
+          <p class="checkout-question">Qual a forma de pagamento?</p>
+
+          <div class="payment-options" id="paymentOptions">
+            <button
+              class="payment-option"
+              data-payment="dinheiro"
+              type="button"
+            >
+              <span class="payment-option__icon" aria-hidden="true">💵</span>
+              <span class="payment-option__label">Dinheiro</span>
+            </button>
+            <button class="payment-option" data-payment="cartao" type="button">
+              <span class="payment-option__icon" aria-hidden="true">💳</span>
+              <span class="payment-option__label">Cartão</span>
+            </button>
+            <button class="payment-option" data-payment="pix" type="button">
+              <span class="payment-option__icon" aria-hidden="true">🔑</span>
+              <span class="payment-option__label">Pix</span>
+            </button>
+          </div>
+
+          <button
+            class="btn btn--whatsapp btn--block"
+            id="sendWhatsappBtn"
+            disabled
+          >
+            Enviar Pedido pelo WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
